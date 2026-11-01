@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Creative & Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0b132b;        /* Rich Deep Midnight Blue */
+            --bg-surface: #1c2541;     /* Soft Navy Surface */
+            --bg-card: #151e38;        /* Card Background */
+            --border: rgba(255, 255, 255, 0.12);
+            --border-hover: rgba(240, 235, 220, 0.4);
+            --text-cream: #f0ebd8;     /* Warm Cream Text */
+            --text-muted: #8d99ae;     /* Muted Blue-Grey */
+            --accent-gold: #e0a96d;    /* Subtle Warm Gold Accent */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /*Subtle Background Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -20%;
+            left: 20%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(28, 37, 65, 0.6) 0%, rgba(11, 19, 43, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- Header Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 6%;
+            background: rgba(11, 19, 43, 0.85);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-cream);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-cream);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 10px 0;
+            display: none;
+            min-width: 170px;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 18px;
+            font-size: 0.82rem;
+            text-transform: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--bg-card);
+            color: var(--accent-gold);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* --- Main Page Content --- */
+        #main-content {
+            display: block;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 60px 0 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5.2rem);
+            line-height: 1.08;
+            font-weight: 400;
+            color: var(--text-cream);
+            margin-bottom: 15px;
+            max-width: 900px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            font-weight: 300;
+        }
+
+        /* --- Section Header --- */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 40px 0 25px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--text-cream);
+        }
+
+        .section-num {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-family: monospace;
+        }
+
+        /* --- Galleries & Stacking Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .gallery-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+
+        .media-box {
+            width: 100%;
+            height: 280px;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover .media-box img {
+            transform: scale(1.04);
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(11, 19, 43, 0.85);
+            color: var(--accent-gold);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(4px);
+            z-index: 2;
+        }
+
+        .card-meta {
+            padding: 20px;
+        }
+
+        .card-meta h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--text-cream);
+            margin-bottom: 1px;
+        }
+	.card-meta h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.0rem;
+            color: var(--text-cream);
+            margin-bottom: 2px;
+        }
+
+        .card-meta p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Research Section --- */
+        .research-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .research-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .research-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .research-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .research-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            background: rgba(224, 169, 109, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(224, 169, 109, 0.2);
+        }
+
+        .research-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .research-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--text-cream);
+            margin-bottom: 8px;
+        }
+
+        .research-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* --- About Section --- */
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 45px;
+            margin-bottom: 90px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .about-sidebar h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--text-cream);
+            margin-bottom: 8px;
+        }
+
+        .about-sidebar p {
+            color: var(--accent-gold);
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-body p {
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Dedicated Album View Page --- */
+        .album-view {
+            display: none;
+            padding: 60px 0 100px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-bottom: 40px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg-surface);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-gold);
+        }
+
+        .album-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--text-cream);
+            margin-bottom: 10px;
+        }
+
+        .album-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .album-photo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .album-photo-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+        }
+
+        .album-photo-card .media-box {
+            height: 280px;
+        }
+
+        .album-photo-info {
+            padding: 16px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .zoom-icon {
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- MAXIMIZED LIGHTBOX PREVIEW MODAL --- */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 9, 20, 0.96);
+            backdrop-filter: blur(14px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1150px;
+            width: 95vw;
+            max-height: 94vh;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        /* Maximized Image Area */
+        .lightbox-img-container {
+            width: 100%;
+            height: 78vh;
+            background: #050914;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            padding: 12px;
+        }
+
+        .lightbox-content {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Compact Info Panel */
+        .lightbox-info-panel {
+            width: 100%;
+            padding: 16px 28px 20px;
+            overflow-y: auto;
+            background: var(--bg-card);
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .lightbox-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--text-cream);
+            line-height: 1.2;
+        }
+
+        .lightbox-meta-tag {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .lightbox-description {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: var(--text-cream);
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10;
+            transition: color 0.2s, border-color 0.2s;
+            background: rgba(11, 19, 43, 0.85);
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                grid-template-columns: 1fr;
+            }
+            .lightbox-wrapper {
+                max-height: 96vh;
+            }
+            .lightbox-img-container {
+                height: 60vh;
+            }
+            .lightbox-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <a onclick="showMainPage()" class="logo">PORTFOLIO<span>.</span></a>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#work" onclick="showMainPage()">Work ▾</a>
+                <div class="dropdown-menu">
+                    <a href="#art" onclick="showMainPage()">Artwork & Design</a>
+                    <a href="#photography" onclick="showMainPage()">Photography</a>
+                </div>
+            </li>
+            <li><a href="#research" onclick="showMainPage()">Research</a></li>
+            <li><a href="#about" onclick="showMainPage()">About</a></li>
+            <!-- Resume & LinkedIn Links -->
+                <li><a href="https://www.linkedin.com/in/philijoy-li-a3512932b/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+		<li><a href="mailto:philijoy.li1@gmail.com">Contact ↗</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <!-- MAIN PAGE CONTENT -->
+        <div id="main-content">
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-tag">Creative & Academic Archive</div>
+                <h1>PHILIJOY LI</h1>
+                <p>Sometimes I experiment.
+Sometimes I draw. </p>
+		 <p> Usually I'm somewhere in between.</p>
+		<p>               </p>
+ 		<p>~ My goal is simple: phil.u.w.joy ~</p>
+
+
+            </section>
+
+          
+            <!-- Artwork & Design Section -->
+            <section id="art">
+                <div class="section-header">
+                    <h2 class="section-title">Artwork & Design</h2>
+                    <span class="section-num">01 / ARTWORK</span>
+                </div>
+
+                <div class="gallery-grid">
+
+                    <!-- ARTWORK 1 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Fairy Land', 'artwork1.jpg', 'Oil Paint • 2025', 'This painting depicts the parallel dimension of eternal youth and beauty, capturing the raw movement of flowing water. The vibrant colors from the red tree and sweeping river represent a harmonious balance between permanent structures and the transformative nature of life. ')">
+                        <div class="media-box">
+                            <img src="artwork1.jpg" alt="Fairy Land">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Fairy Land</h3>
+                            <h4>(24x36in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 2 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Reverie', 'artwork2.jpg', 'Oil Paint • 2025', 'This piece was inspired by the feelings of being physically present but mentally wandering elsewhere, the calm and vulnerable emotions from daydreaming or nostalgia. This artwork features a young woman representing grace and social identity with long braided reddish-brown hair. She is wearing a light colored ruffled blouse, and her hair holds soft colored flowers with varying shades, including pink, yellow, and white.')">
+                        <div class="media-box">
+                            <img src="artwork2.jpg" alt="Reverie">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Reverie</h3>
+                            <h4>(24x30in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 3 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('The Promise of Rose', 'artwork3.jpg', 'Oil Paint • 2026', 'The piece captures a contemplative woman dressed in a dark, high-collared gown with a vibrant shoulder sash. Her hair is elegantly held up with delicate red roses, pink ribbon, and other small accessories; the surrounding greenery and blooming flora cast colored shadows onto her skin. It honors what the rose has to offer- emotional loyalty and enduring love.')">
+                        <div class="media-box">
+                            <img src="artwork3.jpg" alt="Artwork 3">
+                        </div>
+                        <div class="card-meta">
+                            <h3>The Promise of Rose</h3>
+                            <h4>(24x36in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 4 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('The WildFlowers Hold Me', 'artwork4.jpg', 'Oil Paint • 2026', 'This piece captures a sense of tenderness, illustrating a figure gently cocooned within a vibrant landscape of blooming flowers. It symbolizes the natural touch of the world, particularly the feeling of being safe, loved, and at peace.')">
+                        <div class="media-box">
+                            <img src="artwork4.jpg" alt="Artwork 4">
+                        </div>
+                        <div class="card-meta">
+                            <h3>The WildFlowers Hold Me</h3>
+                            <h4>(18x24in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 5 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Where Dreams Flower', 'artwork5.jpg', 'Oil Paint • 2026', 'This piece features two people dreaming and the sprouting of ideas, creativity, and imagination. The flowers in the painting represent this manifestation, surrounding the figures with spring-like colors and a blanket of yellows, greens, and blues. ')">
+                        <div class="media-box">
+                            <img src="artwork5.jpg" alt="Artwork 5">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Where Dreams Flower</h3>
+                            <h4>(16x20in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 6 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Borderline', 'artwork6.jpg', 'Oil Paint • 2026', 'This piece represents the borderline where the ocean meets the sky. They are both vast, but the bottom, shown by the coral, and the top, shown by the stars, blur into the infinite and unattainable.')">
+                        <div class="media-box">
+                            <img src="artwork6.jpg" alt="Artwork 6">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Borderline</h3>
+                            <h4>(18x24in)</h4>
+                        </div>
+                    </div>
+
+
+                    <!-- ARTWORK 7 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Corals', 'artwork7.jpg', 'Colored Pencils & Acrylic Markers • 2026', 'The central, towering coral structure stands as a pillar of how coral reefs shelter communities and act as the heartbeat of our oceans. The figure represents the connection that humanity has with the ocean, a reminder of our role as caretakers and our responsibility to protect these irreplaceable ecosystems.')">
+                        <div class="media-box">
+                            <img src="artwork7.jpg" alt="Corals">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Corals</h3>
+                            <h4>(18x24in)</h4>
+                        </div>
+                    </div>
+
+                    <!-- ARTWORK 8 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Spring Time Reflection', 'artwork8.jpg', 'Watercolor • 2024', 'A weeping cherry tree that signifies lifes beautiful but temporary nature- transience. The piece features a full bloom reflected in a body of water, alongside European-style architecture and lush trees.')">
+                        <div class="media-box">
+                            <img src="artwork8.jpg" alt="Spring Time Reflection">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Spring Time Reflection</h3>
+                            <h4>(18x24in)</h4>
+                        </div>
+                    </div>
+
+  			<!-- ARTWORK 9 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Paws over Petals', 'artwork9.jpg', 'Oil Paint • 2024', 'A painting featuring my cat Kiwi: her continuous reminder to me to appreciate nature, explore, and take risks')">
+                        <div class="media-box">
+                            <img src="artwork9.jpg" alt="Paws over Petals">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Paws over Petals</h3>
+                            <h4>(18x24in)</h4>
+                        </div>
+                    </div>
+
+
+                    <!-- ARTWORK 10 -->
+                    <div class="gallery-card" onclick="triggerPhotoModal('Cupollection', 'artwork10.png', 'Mixed Media • 2024', 'A recollection of myself, including values and identity. It features the quote -To accomplish great things we must not only act but also dream not only plan but also believe-, the chinese character 福 (fú) meaning good fortune, an orange/blue bird, flowers, and vibrant colors.')">
+                        <div class="media-box">
+                            <img src="artwork10.png" alt="Cupollection">
+                        </div>
+                        <div class="card-meta">
+                            <h3>Cupollection</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+  <!-- Photography Section -->
+            <section id="photography">
+                <div class="section-header">
+                    <h2 class="section-title">Photography</h2>
+                    <span class="section-num">02 / PHOTOS</span>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Birding Cover Card -->
+                    <div class="gallery-card" onclick="openAlbum('birding')">
+                        <div class="media-box">
+                            <img src="bird1.png" alt="Birding Cover">
+                            <span class="click-hint">View Album ↗</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Birding</h3>
+                            <p>A gallery of avian wildlife photography</p>
+                        </div>
+                    </div>
+
+                    <!-- Landscape Cover Card -->
+                    <div class="gallery-card" onclick="openAlbum('landscape')">
+                        <div class="media-box">
+                            <img src="landscape1.png" alt="Landscape Cover">
+                            <span class="click-hint">View Album ↗</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Landscape/Cityscape Series</h3>
+                            <p>Natural light, horizon lines, and textured atmosphere studies</p>
+                        </div>
+                    </div>
+
+                    <!-- Event Photography Cover Card -->
+                    <div class="gallery-card" onclick="openAlbum('event')">
+                        <div class="media-box">
+                            <img src="EventPhotography1.jpg" alt="Event Photography Cover">
+                            <span class="click-hint">View Album ↗</span>
+                        </div>
+                        <div class="card-meta">
+                            <h3>Event Photography</h3>
+                            <p>Capturing live events, dynamic field movements, and groups</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Research Section -->
+            <section id="research">
+                <div class="section-header">
+                    <h2 class="section-title">Research & Writings</h2>
+                    <span class="section-num">03 / PAPERS</span>
+                </div>
+
+                <div class="research-stack">
+
+                    <div class="research-card">
+                        <div class="research-header">
+                            <span class="research-tag">ONGOING Research</span>
+                            <span class="research-date">2026-Present</span>
+                        </div>
+                        <h3>Evaluating Green Roofs as Living Bio-Filters: A High-Throughput eDNA Analysis of Stormwater Runoff Dynamics and Urban Watershed Health</h3>
+                        <p>Although there has been recent metabarcoding research on static microbiomes in green roofs’ substrate soils (like essential nitrogen-fixing and robust taxa), few studies have explored profiles of eDNA present in the liquid runoff during rain. We seek to answer the question: what is the impact of the green roof system on stormwater runoff in terms of its microbial community composition, species diversity, and indicator bacteria presence in comparison with that of conventional impervious surfaces and reference water bodies? </p>
+
+<p> The goal is to eventually create a green roof model that takes the beneficial non-pathogenic soil taxa identified in 16S sequencing and intentionally inoculate a soil matrix to accelerate active biofiltration. Through hard physical metrics (CFU counts, turbidity, and volume retention) the green infrastructure should successfully intercept stormwater and prevent urban sewage (CSO) pollution.<p>
+                    </div>
+
+                    <div class="research-card">
+                        <div class="research-header">
+                            <span class="research-tag">Research Paper</span>
+                            <span class="research-date">2025-2026</span>
+                        </div>
+                        <h3>Integrating Computational Modeling and Patient Data to Reveal Regulatory Pathways in Alzheimer’s Disease Neuroinflammation</h3>
+			<a href="ADresearch.pdf" target="_blank">View PDF Document ↗</a>
+                        <p>Alzheimer's disease is a progressive neurodegenerative disorder with two prominent features: chronic neuroinflammation and the presence of Aβ plaques. It is known that several genetic risk factors, such as TREM2, IL1B, and ABCA1, can affect the risk of developing AD; however, our understanding of the complex interactions within the broader neuroinflammatory system remains unclear. This study addresses how neuron-glia interactions contribute to neuroinflammation in AD and how a Boolean model can identify key regulatory pathways. We hypothesize that computational simulations will reflect known biological outcomes, such as reduced immune activation after TREM2 knockout or increased Aβ buildup after ABCA1 loss. A qualitative Boolean network model of neuroinflammatory signaling was constructed in GINsim (v3.0.0). The model’s logical rules were built using gene expression data from published AD mouse knockout studies (TREM2, IL1B, ABCA1, APOE) and literature review. This computational model was then combined with human patient biomarker and gene expression data from the ADNI and AMP-AD databases to link simulations to clinical disease progression. The Boolean neuroinflammatory network model predicts sustained activation of microglial and pro-inflammatory nodes, along with reduced neuronal maintenance node activity, reflecting the neuroinflammatory patterns observed in Alzheimer’s disease. We performed in silico knockouts (KOs) by setting target nodes to 0 and analyzing the resulting states, or “attractors,” which represent long-term cellular conditions. Our results showed that simulated gene knockouts produced distinct outcomes. The absence of ABCA1 has resulted in a dramatic increase in glial-cell activation markers (such as GFAP and TREM2), indicating that ABCA1 generally inhibits the activation of glial cells. The absence of IL1B results in reduced levels of several inflammatory markers, further supporting its role as a principal mediator of inflammation.
+</p>
+                    </div>
+
+                    <div class="research-card">
+                        <div class="research-header">
+                            <span class="research-tag">Research Paper</span>
+                            <span class="research-date">2025-2026</span>
+                        </div>
+                        <h3>Factors affecting Avian Biodiversity in Long Island Saltmarshes</h3>
+            		<li><a href="https://dnabarcoding101.org/symposium/details/5064" target="_blank" rel="noopener noreferrer">UBRP Project Link ↗</a></li>
+                        <p>Using data from this year, previous UBRP years, and eBird, our group assessed what prevalent bird species are in the Oceanside, Long Island, Marine Nature Study Area during the fall migration period and made inferences as to how these species' migratory patterns have changed over time. First, using feathers collected from the salt marsh, wooded, and dune areas of the Oceanside, NY Marine Nature Study Area. We learned how to understand different forms of DNA extraction for bird feathers. Then, we isolated the feather DNA using a PCR extraction method, checked if our PCR was successful using gel electrophoresis, and sent the DNA for sequencing. After receiving our sequenced DNA, we searched for our collected bird species using DNA Subway. Once our group had determined a list of species, we looked at past data involving migratory birds in the Marine Nature Study Area during the fall to early winter period.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about">
+                <div class="section-header">
+                    <h2 class="section-title">About Me</h2>
+                    <span class="section-num">04 / PROFILE</span>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-sidebar">
+                        <h3>My Story</h3>
+                        <p>Creator & Researcher</p>
+                    </div>
+                    <div class="about-body">
+                        <p>As a lover of art and exploration, I strive to create what I see, how I think, and stories that shape me and the people around me. I am constantly looking to try new mediums and find the artistic style where I can express myself freely.</p>
+                        <p>My intuition to question things comes from observation, and I am fascinated by how research can transform medicine, design, economies, and much more.<p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- BIRDING ALBUM PAGE -->
+        <div id="birding-album" class="album-view">
+            <button class="back-btn" onclick="showMainPage()">← Back to Portfolio</button>
+            <h1 class="album-title">Birding</h1>
+            <p class="album-desc">A dedicated collection showcasing avian wildlife and natural habitat photography.</p>
+
+            <div class="album-grid">
+                <!-- BIRD 1 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 1', 'bird1.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird1.png" alt="Bird 1">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 1</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 2 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 2', 'bird2.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird2.png" alt="Bird 2">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 2</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 3 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 3', 'bird3.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird3.png" alt="Bird 3">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 3</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 4 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 4', 'bird4.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird4.png" alt="Bird 4">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 4</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 5 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 5', 'bird5.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird5.png" alt="Bird 5">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 5</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 6 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 6', 'bird6.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird6.png" alt="Bird 6">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 6</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 7 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 7', 'bird7.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird7.png" alt="Bird 7">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 7</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 8 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 8', 'bird8.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird8.png" alt="Bird 8">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 8</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 9 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 9', 'bird9.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird9.png" alt="Bird 9">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 9</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- BIRD 10 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Bird 10', 'bird10.png', 'Wildlife Photography')">
+                    <div class="media-box">
+                        <img src="bird10.png" alt="Bird 10">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Bird 10</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LANDSCAPE ALBUM PAGE -->
+        <div id="landscape-album" class="album-view">
+            <button class="back-btn" onclick="showMainPage()">← Back to Portfolio</button>
+            <h1 class="album-title">Landscape/Cityscape Series</h1>
+            <p class="album-desc">An ongoing exploration of terrain, seasonal lighting, horizon lines, and atmospheric textures.</p>
+
+            <div class="album-grid">
+                <!-- LANDSCAPE PHOTO 1 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Landscape Photo 1', 'landscape1.png', 'Landscape Study')">
+                    <div class="media-box">
+                        <img src="landscape1.png" alt="Landscape 1">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Location 1</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- LANDSCAPE PHOTO 2 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Landscape Photo 2', 'landscape2.jpeg', 'Landscape Study')">
+                    <div class="media-box">
+                        <img src="landscape2.jpeg" alt="Landscape 2">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Location 2</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- LANDSCAPE PHOTO 3 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Landscape Photo 3', 'landscape3.jpg', 'Landscape Study')">
+                    <div class="media-box">
+                        <img src="landscape3.jpg" alt="Landscape 3">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Location 3</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- LANDSCAPE PHOTO 4 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Landscape Photo 4', 'landscape4.jpeg', 'Landscape Study')">
+                    <div class="media-box">
+                        <img src="landscape4.jpeg" alt="Landscape 4">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Location 4</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- LANDSCAPE PHOTO 5 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Landscape Photo 5', 'landscape5.jpg', 'Landscape Study')">
+                    <div class="media-box">
+                        <img src="landscape5.jpg" alt="Landscape 5">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Location 5</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- EVENT PHOTOGRAPHY ALBUM PAGE -->
+        <div id="event-album" class="album-view">
+            <button class="back-btn" onclick="showMainPage()">← Back to Portfolio</button>
+            <h1 class="album-title">Event Photography</h1>
+            <p class="album-desc">A collection capturing live events, dynamic field movements, and groups</p>
+
+            <div class="album-grid">
+                <!-- EVENT 1 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 1', 'EventPhotography1.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography1.jpg" alt="Event Photography 1">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 1</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 2 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 2', 'EventPhotography2.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography2.jpg" alt="Event Photography 2">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 2</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 3 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 3', 'EventPhotography3.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography3.jpg" alt="Event Photography 3">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 3</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 4 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 4', 'EventPhotography4.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography4.jpg" alt="Event Photography 4">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 4</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 5 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 5', 'EventPhotography5.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography5.jpg" alt="Event Photography 5">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 5</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 6 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 6', 'EventPhotography6.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography6.jpg" alt="Event Photography 6">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 6</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 7 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 7', 'EventPhotography7.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography7.jpg" alt="Event Photography 7">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 7</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 8 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 8', 'EventPhotography8.jpg', 'Live Event Coverage', 'Performance and movement documentation - Marching Band')">
+                    <div class="media-box">
+                        <img src="EventPhotography8.jpg" alt="Event Photography 8">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 8</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 9 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 9', 'EventPhotography9.jpg', 'Live Event Coverage', 'Performance and movement documentation - Knicks Parade')">
+                    <div class="media-box">
+                        <img src="EventPhotography9.jpg" alt="Event Photography 9">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 9</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 10 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 10', 'EventPhotography10.jpg', 'Live Event Coverage', 'Performance and movement documentation - Knicks Parade')">
+                    <div class="media-box">
+                        <img src="EventPhotography10.jpg" alt="Event Photography 10">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 10</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+                <!-- EVENT 11 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 11', 'EventPhotography11.jpg', 'Live Event Coverage', 'Performance and movement documentation - Knicks Parade')">
+                    <div class="media-box">
+                        <img src="EventPhotography11.jpg" alt="Event Photography 10">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 11</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+
+                <!-- EVENT 12 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 12', 'EventPhotography12.jpg', 'Live Event Coverage', 'Performance and movement documentation - Knicks Parade')">
+                    <div class="media-box">
+                        <img src="EventPhotography12.jpg" alt="Event Photography 10">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 12</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+
+
+                <!-- EVENT 13 -->
+                <div class="album-photo-card" onclick="triggerPhotoModal('Event Photography 13', 'EventPhotography13.jpg', 'Live Event Coverage', 'Performance and movement documentation - Knicks Parade')">
+                    <div class="media-box">
+                        <img src="EventPhotography13.jpg" alt="Event Photography 13">
+                    </div>
+                    <div class="album-photo-info">
+                        <span>Event Photo 13</span>
+                        <span class="zoom-icon">Zoom ↗</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ENHANCED MAXIMIZED LIGHTBOX PREVIEW MODAL -->
+    <div id="lightbox" class="lightbox-modal" onclick="closeLightbox(event)">
+        <div class="lightbox-wrapper">
+            <span class="lightbox-close" onclick="closeLightboxDirect()">&times;</span>
+            <div class="lightbox-img-container">
+                <img id="lightbox-img" class="lightbox-content" src="" alt="Fullscreen view">
+            </div>
+            <div class="lightbox-info-panel">
+                <div class="lightbox-header">
+                    <h2 id="lightbox-title" class="lightbox-title">Artwork Title</h2>
+                    <span id="lightbox-meta" class="lightbox-meta-tag">Medium • Year</span>
+                </div>
+                <p id="lightbox-description" class="lightbox-description">Detailed description of the artwork or photo, explaining technical details, creative process, and thematic background.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Philijoy Li. All rights reserved. (Made with HTML & CSS)</p>
+    </footer>
+
+    <script>
+        function openAlbum(albumId) {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('birding-album').style.display = 'none';
+            document.getElementById('landscape-album').style.display = 'none';
+            document.getElementById('event-album').style.display = 'none';
+
+            if (albumId === 'birding') {
+                document.getElementById('birding-album').style.display = 'block';
+            } else if (albumId === 'landscape') {
+                document.getElementById('landscape-album').style.display = 'block';
+            } else if (albumId === 'event') {
+                document.getElementById('event-album').style.display = 'block';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showMainPage() {
+            document.getElementById('birding-album').style.display = 'none';
+            document.getElementById('landscape-album').style.display = 'none';
+            document.getElementById('event-album').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Enhanced Lightbox Functions with Description Support */
+        function triggerPhotoModal(title, imgSrc, metaTag = 'Artwork / Photo', descText = '') {
+            const cardElement = event.currentTarget;
+            const imgElement = cardElement.querySelector('img');
+            
+            const modal = document.getElementById('lightbox');
+            const modalImg = document.getElementById('lightbox-img');
+            const modalTitle = document.getElementById('lightbox-title');
+            const modalMeta = document.getElementById('lightbox-meta');
+            const modalDesc = document.getElementById('lightbox-description');
+
+            modal.style.display = 'flex';
+            modalTitle.innerText = title;
+            modalMeta.innerText = metaTag;
+            modalDesc.innerText = descText;
+
+            if (imgElement && imgElement.getAttribute('src')) {
+                modalImg.src = imgElement.src;
+            } else {
+                modalImg.src = imgSrc;
+            }
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').style.display = 'none';
+            }
+        }
+
+        function closeLightboxDirect() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightboxDirect();
+            }
+        });
+    </script>
+
+</body>
+</html>
